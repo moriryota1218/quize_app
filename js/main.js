@@ -11,10 +11,14 @@
     {q: 'What is A', c: ['A0', 'A1', 'A2']},
     {q: 'What is B', c: ['B0', 'B1', 'B2']},
     {q: 'What is C', c: ['C0', 'C1', 'C2']},
+    {q: 'What is D', c: ['D0', 'D1', 'D2']},
+    {q: 'What is E', c: ['E0', 'E1', 'E2']},
   ];
 
-  // 何問目のクイズを解いているか変数を設定
+  // 何問目のクイズを解いているか変数を定義
   let currentNum = 0;
+  // 回答したかどうか変数を定義
+  let isAnswered;
 
 
 
@@ -31,16 +35,33 @@
   }
   // 正誤判定処理の実装
   function checkAnswer(li) {
-    if(li.textContent === quizSet[currentNum].c[0]) {
-      console.log('correct'); //正解の処理
-    } else {
-      console.log('wrong'); //不正解の処理
+    // 回答した時の処理
+    if(isAnswered) {
+      return;
     }
+    isAnswered = true;
+
+    if(li.textContent === quizSet[currentNum].c[0]) {
+      li.classList.add('correct'); //正解の処理
+    } else {
+      li.classList.add('wrong');//不正解の処理
+    }
+
+    // Nextボタンを押せるようにする
+    btn.classList.remove('disabled');
   }
 
   // 選択肢シャッフルを関数の処理にまとめる
   function setQuiz() {
+    // まだ回答していない
+    isAnswered = false;
     question.textContent = quizSet[currentNum].q;
+
+    // 次の問題に行くように、前の問題を消すループ処理を実装
+    while (choices.firstChild) {
+      choices.removeChild(choices.firstChild);
+    }
+
 
     // shuffle 関数を使って、選択肢をシャッフルしてから表示する
     // スプレッド演算子を使い元の選択肢の配列はそのままに、シャッフルされた配列を作る
@@ -55,7 +76,22 @@
       });
       choices.appendChild(li);
     });
+
+    // スコアの表示
+    if (currentNum === quizSet.length -1) {
+      btn.textContent = 'Show Score';
+    }
   }
 
   setQuiz();
+
+  // Nextボタンをクリックした時の処理
+  btn.addEventListener('click',() => {
+    if (btn.classList.contains('disabled')) {
+      return;
+    }
+    btn.classList.add('disabled');
+    currentNum++;
+    setQuiz();
+  });
 }

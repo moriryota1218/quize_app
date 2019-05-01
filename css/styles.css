@@ -36,6 +36,28 @@ body {
   background: #7FFFD4;
 }
 
+#choices li.correct {
+  background: #0000FF;
+  border-color: #1E90FF;
+  color: #00FFFF;
+  font-weight: bold;
+}
+
+#choices li.correct::after {
+  content: "...正解！";
+}
+
+#choices li.wrong {
+  background: #FF4500;
+  border-color: #DC143C;
+  color: #FFE4E1;
+  font-weight: bold;
+}
+
+#choices li.wrong::after {
+  content: "...残念！";
+}
+
 #btn {
   cursor: pointer;
   background: #6495ED;
