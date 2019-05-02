@@ -4,22 +4,25 @@
   const question = document.getElementById('question');
   const btn = document.getElementById('btn');
   const choices = document.getElementById('choices');
+  const result = document.getElementById('result');
+  const scoreLabel = document.querySelector('#result p');
 
   // クイズのデータの用意(配列)
   const quizSet = [
     // 配列の中にオブジェクトを用意
-    {q: 'What is A', c: ['A0', 'A1', 'A2']},
-    {q: 'What is B', c: ['B0', 'B1', 'B2']},
-    {q: 'What is C', c: ['C0', 'C1', 'C2']},
-    {q: 'What is D', c: ['D0', 'D1', 'D2']},
-    {q: 'What is E', c: ['E0', 'E1', 'E2']},
+    {q: '猫の本当の大好物は?', c: ['肉', '魚', '麺']},
+    {q: 'キリンの睡眠時間は?', c: ['20分', '寝ない', '7時間']},
+    {q: 'ラクダのコブには何が詰まってる?', c: ['脂肪', '水', '油']},
+    {q: '猫よけとして効果的な物は?', c: ['超音波', 'ペットボトル', '水']},
+    {q: 'シマウマの鳴き声は?', c: ['ワンワン', 'にゃー', 'もー']},
   ];
 
   // 何問目のクイズを解いているか変数を定義
   let currentNum = 0;
   // 回答したかどうか変数を定義
   let isAnswered;
-
+  // 正答数を変数で定義
+  let score = 0;
 
 
   // シャッフルの処理（フィッシャー・イェーツのシャッフル）
@@ -43,6 +46,7 @@
 
     if(li.textContent === quizSet[currentNum].c[0]) {
       li.classList.add('correct'); //正解の処理
+      score++;
     } else {
       li.classList.add('wrong');//不正解の処理
     }
@@ -91,7 +95,15 @@
       return;
     }
     btn.classList.add('disabled');
-    currentNum++;
-    setQuiz();
+
+// 正解数を結果にだす処理
+    if (currentNum === quizSet.length - 1) {
+      // console.log(`Score: ${score} / ${quizSet.length}`);
+      scoreLabel.textContent = `Score: ${score} / ${quizSet.length}`;
+      result.classList.add('show');
+    } else {
+      currentNum++;
+      setQuiz();
+    }
   });
 }

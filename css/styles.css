@@ -6,16 +6,18 @@ body {
 
 .container {
   width: 400px;
-  margin: 50px auto;
+  margin: 60px auto;
   background: #fff;
   border-right: 4px;
   padding: 16px;
+  /* 絶対配置でスコアが上に重なるようにする */
   position: relative;
 }
 
 #question{
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   font-weight: bold;
+  font-size: 17px;
 }
 
 #choices {
@@ -72,4 +74,51 @@ body {
   background: #ccc;
   box-shadow: 0 4px #bbb;
   opacity: 0.7;
+}
+
+#result {
+  position: absolute;
+  width: 300px;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  /* top: 50px; */
+  /* スコア表示を画面外に持ってくる */
+  top: -500px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-right: 4px;
+  text-align: center;
+  /* アニメーション対応 */
+  transition: 0.4s ease-out;
+}
+
+#result.show {
+  top: 50px;
+}
+
+#result p {
+  font-size: 25px;
+}
+
+#btn, #result a {
+  cursor: pointer;
+  background: #6495ED;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 0 #4169E1;
+}
+
+#result a {
+  display: block;
+  text-decoration: none;
+}
+
+#title {
+  text-align: center;
+  font-size: 30px;
+  color: #8B4513;
 }
